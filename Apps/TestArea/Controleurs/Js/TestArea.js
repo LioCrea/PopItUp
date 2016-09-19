@@ -6,8 +6,7 @@ TestArea.prototype = {
 
         $('.confirm-this-action').click( function () {
             This.confirm({
-                'type' : 'success',
-                'message' : 'This is a high danger decision. Can you please confirm action?'
+                'type' : 'success'
             });
         });
 
@@ -31,6 +30,7 @@ TestArea.prototype = {
 
         var popup=  '<div class="popup-confirm">' +
                         '<div class="popup-message"></div>' +
+                        '<div class="type-icon"></div>' +
                         '<div class="line-wrapper">' +
                             '<div class="xs-lines"></div>' +
                         '</div>' +
@@ -45,14 +45,8 @@ TestArea.prototype = {
         $('.line-wrapper').css({
                                 'text-align' : 'right'
                                 });
-        $('.xs-lines').css({
-                            display: 'inline-block',
-                            width: '80%',
-                            height: '1px',
-                            margin: '10px auto',
-                            background: '#ffffff'
-                            });
         $('.popup-confirm-btn').css({
+                                    margin: '10px auto',
                                     'text-align': 'right'
                                     });
         $('.popup-btn').css({
@@ -76,37 +70,84 @@ TestArea.prototype = {
                                 'box-shadow': '1px 1px 2px 0px rgba(158,158,158,1)'
                                 });
         $('.popup-message').css({
+                                position: 'absolute',
+                                width: '600px',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                '-webkit-transform': 'translate(-50%, -50%)',
                                 padding: '6px',
                                 'text-align': 'left',
                                 'font-family' : 'Lato Light',
                                 'font-size' : '22px'
                                 });
+        $('.type-icon').css({
+                            position: 'absolute',
+                            top: 0,
+                            left: '10%',
+                            color: '#ffffff',
+                            'font-size' : '50px',
+                            transition: '.3s',
+                            opacity: 0
+                            });
 
         // Case message
-        if((options.message).length != 0 ) {
+        if(options.message && (options.message).length != 0 ) {
             $('.popup-message').html(options.message);
+        } else {
+            switch(options.type) {
+                case 'danger':
+                    $('.popup-message').html('This is a dangerous stuff that you\'re trying to do. Are you sure?');
+                    break;
+                case 'warning':
+                    $('.popup-message').html('Well... Looks like there are some weird stuffs. Are you sure?');
+                    break;
+                case 'success':
+                    $('.popup-message').html('Everything worked like a charm! Great :)');
+                    break;
+            }
         }
 
         // Case type
-        if(options.type == 'danger') {
-            $('.popup-btn').html('Confirm');
-            $('.popup-btn').css({color: '#e74c3c'});
-            $('.popup-confirm').css({
-                                    background: '#e74c3c',
-                                    color: '#ffffff'
-                                 });
-        } else if (options.type == 'success') {
-            $('.popup-btn').html('Close');
-            $('.popup-btn').css({color: '#27ae60'});
-            $('.popup-confirm').css({
-                                    background: '#27ae60',
-                                    color: '#ffffff'
-                                    });
+        switch(options.type) {
+            case 'danger':
+                var dangerIcon= '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
+                $('.type-icon').append(dangerIcon);
+                $('.popup-btn').html('Confirm');
+                $('.popup-btn').css({color: '#e74c3c'});
+                $('.popup-confirm').css({
+                                        background: '#e74c3c',
+                                        color: '#ffffff'
+                                        });
+                break;
+            case 'warning':
+                var warningIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
+                $('.type-icon').append(warningIcon);
+                $('.popup-btn').html('Got It!');
+                $('.popup-btn').css({color: '#e67e22'});
+                $('.popup-confirm').css({
+                                        background: '#e67e22',
+                                        color: '#ffffff'
+                                        });
+                break;
+            case 'success':
+                var successIcon= '<i class="fa fa-check" aria-hidden="true"></i>';
+                $('.type-icon').append(successIcon);
+                $('.popup-btn').html('Close');
+                $('.popup-btn').css({color: '#27ae60'});
+                $('.popup-confirm').css({
+                                        background: '#27ae60',
+                                        color: '#ffffff'
+                                        });
+                break;
         }
 
         setTimeout( function () {
                 $('.popup-confirm').css({ top: 0 });
         },100);
+        setTimeout( function () {
+                $('.type-icon').css({ opacity: 1 });
+        }, 400);
 
         This.callBack();
     },
