@@ -33,14 +33,34 @@ TestArea.prototype = {
                     '</div>';
         $('body').append(popup);
 
+        var btnCl= 'confirm-action';
+        var confirmBtn= '<button class="popup-btn ' + btnCl + '"> Confirm this action </button>';
+        $('.popup-confirm-btn').append(confirmBtn);
+        $('.popup-confirm-btn').css({
+                                        'text-align': 'right',
+                                        'border-top' : '1px solid #ffffff'
+                                    });
+        $('.popup-btn').css({
+                                margin: '20px',
+                                padding: '10px',
+                                border: 'none',
+                                background: '#ffffff',
+                                color: '#e74c3c',
+                                'font-family' : 'Lato Light',
+                                'font-size' : '20px',
+                                cursor: 'pointer'
+                            });
         $('.popup-confirm').css({
                                     position: 'absolute',
                                     width: '100%',
                                     padding: '20px',
-                                    top: '-160px',
+                                    top: '-220px',
                                     left: 0,
                                     border: '1px solid #93a3b5',
-                                    transition: '.2s'
+                                    transition: '.3s',
+                                    '-webkit-box-shadow': '1px 1px 2px 0px rgba(158,158,158,1)',
+                                    '-moz-box-shadow': '1px 1px 2px 0px rgba(158,158,158,1)',
+                                    'box-shadow': '1px 1px 2px 0px rgba(158,158,158,1)'
                                 });
         $('.popup-message').css({
                                     padding: '20px',
@@ -60,26 +80,11 @@ TestArea.prototype = {
                                     background: '#e74c3c',
                                     color: '#ffffff'
                                  });
-            var btnCl= 'confirm-action';
-            var confirmBtn= '<button class="popup-btn ' + btnCl + '"> Confirm this action </button>';
-            $('.popup-confirm-btn').append(confirmBtn);
-            $('.popup-confirm-btn').css({
-                                            'text-align': 'right'
-                                        });
-            $('.popup-btn').css({
-                'margin-right': '20px',
-                border: 'none',
-                background: '#ffffff',
-                color: '#e74c3c',
-                'font-family' : 'Lato Light',
-                'font-size' : '20px',
-                cursor: 'pointer'
-            })
         }
 
         setTimeout( function () {
                 $('.popup-confirm').css({ top: 0 });
-        },800)
+        },100)
     },
 
     init: function () {
